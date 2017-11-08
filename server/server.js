@@ -1,24 +1,18 @@
-const orm = require('mongoose');
+var express = require('express');
+var bodyParser = require('body-parser');
 
-orm.connect('mongodb://localhost:27017/Todo');
-orm.Promise = global.Promise;
+const todoController = require('./controllers/todosController');
 
-var Todo = orm.model('Todo',{
-    text:{
-        type: String
-    },
-    completed:{
-        type: Boolean
-    },
-    completedAt:{
-        type: Number
-    }
+let port = 8080;
+
+var app = express();
+
+app.use(bodyParser.json());
+
+app.post('/todos', (req, res)=>{
+    todoController.post(req.body, res);
 });
 
-let newTodo = new Todo({
-    text: 'Eat dinner'
-});
-
-newTodo.save().then((doc) => {
-    console.log(doc);
+app.listen(port, ()=>{
+    console.log('Started on port: ' + port);
 });

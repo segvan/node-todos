@@ -2,17 +2,18 @@
   "name": "todos",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec 'npm test'",
     "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/segvan/node-todos.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Sergii",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/segvan/node-todos/issues"
   },
@@ -22,5 +23,11 @@
     "express": "^4.16.2",
     "mongodb": "^2.2.33",
     "mongoose": "^4.13.0"
+  },
+  "devDependencies": {
+    "expect": "^21.2.1",
+    "mocha": "^4.0.1",
+    "nodemon": "^1.12.1",
+    "supertest": "^3.0.0"
   }
 }

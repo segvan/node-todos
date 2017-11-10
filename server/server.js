@@ -9,12 +9,12 @@ var app = express();
 
 app.use(bodyParser.json());
 
-app.post('/todos', (req, res)=>{
+app.post('/todos', (req, res) => {
     todoController.post(req.body, res);
 });
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log('Started on port: ' + port);
 });
 
-module.exports = {app};
+module.exports = { app };

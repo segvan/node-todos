@@ -14,4 +14,12 @@ let post = (body, res) => {
     });
 };
 
-module.exports = { post };
+let getAll = (res) => {
+    Todo.find().then((todos) => {
+        res.send({ todos });
+    }, (err) => {
+        res.status(400).send(err);
+    });
+};
+
+module.exports = { post, getAll };

@@ -9,6 +9,10 @@ var app = express();
 
 app.use(bodyParser.json());
 
+app.get('/todos', (req, res) => {
+    todoController.getAll(res);
+});
+
 app.post('/todos', (req, res) => {
     todoController.post(req.body, res);
 });

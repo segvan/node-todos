@@ -13,6 +13,10 @@ app.get('/todos', (req, res) => {
     todoController.getAll(res);
 });
 
+app.get('/todos/:id', (req, res) => {
+    todoController.getById(req.params.id, res);
+});
+
 app.post('/todos', (req, res) => {
     todoController.post(req.body, res);
 });

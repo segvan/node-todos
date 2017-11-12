@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 
 const todoController = require('./controllers/todosController');
 
-let port = 8080;
+let port = process.env.PORT || 8080;
 
 var app = express();
 

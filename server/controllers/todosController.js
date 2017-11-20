@@ -40,4 +40,20 @@ let getById = (id, res) => {
     });
 };
 
-module.exports = { post, getAll, getById };
+let deleteById = (id, res) => {
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+
+        res.send({ todo });
+    }, (err) => {
+        res.status(400).send(err);
+    });
+};
+
+module.exports = { post, getAll, getById, deleteById };

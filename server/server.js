@@ -21,6 +21,10 @@ app.post('/todos', (req, res) => {
     todoController.post(req.body, res);
 });
 
+app.delete('/todos/:id', (req, res) => {
+    todoController.deleteById(req.params.id, res);
+});
+
 app.listen(port, () => {
     console.log('Started on port: ' + port);
 });

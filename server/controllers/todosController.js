@@ -1,4 +1,5 @@
 const { ObjectID } = require('mongodb');
+const _ = require('lodash');
 
 const { orm } = require('./../db/mongoose');
 const { User } = require('./../models/user');
@@ -56,4 +57,31 @@ let deleteById = (id, res) => {
     });
 };
 
-module.exports = { post, getAll, getById, deleteById };
+let patchById = (id, dto, res) => {
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    if(_.isBoolean(dto.completed)){
+        if(dto.completed){
+            dto.completedAt = new Date();
+        } 
+        else {
+            dto.completedAt = null;
+        }
+    }else{
+        return res.status(400).send();
+    }
+
+    Todo.findByIdAndUpdate(id, {$set: dto}, {new: true}).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+
+        res.send({ todo });
+    }, (err) => {
+        res.status(400).send(err);
+    });
+};
+
+module.exports = { post, getAll, getById, deleteById, patchById };

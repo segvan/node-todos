@@ -1,11 +1,12 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
+const _ = require('lodash');
 
 const todoController = require('./controllers/todosController');
 
 let port = process.env.PORT || 8080;
 
-var app = express();
+let app = express();
 
 app.use(bodyParser.json());
 
@@ -23,6 +24,11 @@ app.post('/todos', (req, res) => {
 
 app.delete('/todos/:id', (req, res) => {
     todoController.deleteById(req.params.id, res);
+});
+
+app.patch('/todos/:id', (req, res) => {
+    let dto = _.pick(req.body, ['text', 'completed']);
+    todoController.patchById(req.params.id, dto, res);
 });
 
 app.listen(port, () => {
